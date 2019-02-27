@@ -9,10 +9,6 @@ public class CmdGameApp {
 		
 		Thread cshRunnnable = new Thread(csh, "test mano ");
 		cshRunnnable.start();
-		//cshRunnnable.
-		
-		
-		
 		 
 
 	}

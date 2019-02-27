@@ -12,19 +12,31 @@ public class CmdFormatting {
 	private final static String SEM = ";";
 	private final static String MSG = "m";
 	
+	
+	
+	
+	
+	public static String resetAllAnsiColors() {
+		
+		return ESC + BRA + AnsiFrontColors.DEFAULT_COLOR.code() + SEM + AnsiResets.CLEAR.code();
+	}
+	
 	public static String formatTextColor(String text, AnsiFrontColors front, AnsiBackColors back, AnsiEffects effect) {
 		String temp = null;
 		if (text != null) {
 			
 			//  ("\033[31;1m"  + text + "\033[0m");
-			temp =  ESC + BRA; 
+			temp =  ESC + BRA;
 			if (front != null) {
 				temp +=  front.code();
 			}
 			if (effect != null) {
 				temp +=  SEM + effect.code();
 			}
-			// TODO: back groudn
+			if (back != null) {
+				temp +=  SEM + back.code();
+			}
+
 			
 			temp += MSG + text + ESC + BRA + AnsiResets.CLEAR.code();
 			

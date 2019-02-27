@@ -1,5 +1,8 @@
 #!/bin/bash
 
+## compiling for error checking
+mvn clean compile
+
 ## packaging
 mvn clean package
 
