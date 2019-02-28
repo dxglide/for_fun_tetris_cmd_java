@@ -1,6 +1,14 @@
 package dxglide.apps.games.cmd.tetris.cmddisplay;
 
+
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import dxglide.apps.games.cmd.tetris.cmddisplay.screenEntities.BoxArea;
+import dxglide.apps.games.cmd.tetris.cmddisplay.screenEntities.PlayBoxArea;
+import dxglide.apps.games.cmd.tetris.cmddisplay.screenEntities.ScreenEntity;
+import dxglide.apps.games.cmd.tetris.cmddisplay.screenEntities.StatsBoxArea;
 
 /**
  * https://en.wikipedia.org/wiki/Box-drawing_character
@@ -8,66 +16,68 @@ import java.io.PrintStream;
  */
 public class ScreenHandler {
 
-	private int sizeX;
-	private int sizeY;
+	private int screenSizeX;
+	private int screenSizeY;
+	
+	
+	List<ScreenEntity> screenEntities = new ArrayList<ScreenEntity>();
+	
 	private char [][] screenMatrix = null;
 	private PrintStream out;
 	
 
-	public ScreenHandler(int sizeX, int sizeY, PrintStream out) {
+	public ScreenHandler(int screenSizeX, int screenSizeY, PrintStream out) {
 		super();
-		this.sizeX = sizeX;
-		this.sizeY = sizeY;
+		this.screenSizeX = screenSizeX;
+		this.screenSizeY = screenSizeY;
 		this.out = out;
 	}
 	
 	
 	/**
-	 * Initialize screen matrix for overall display.
+	 * Initialize screen objects ant etc.
 	 */
-	public void initScreen() {
-		screenMatrix = new char [sizeX][sizeY];
-			
+	public void init() {
 		
-		for (int y = 0 ; y < sizeY; y++) {
-			for (int x = 0 ; x < sizeX; x++) {
-				screenMatrix[x][y] = (char)0x2591;   // filling with somthinf
+		screenMatrix = new char [screenSizeX][screenSizeY]; // 100, 30
+		
+		// fill for debugging a background
+		// Initialize screen array, if null there is missing fields
+		
+		for (int y = 0; y < screenSizeY; y++) {
+			for (int x = 0; x < screenSizeX; x++) {
+				screenMatrix[x][y] = (char) 0x2591; // filling with somthinf
 			}
 		}
 		
 		
-		// MAIN BOX
-		// set conners
 		
-		screenMatrix[0][0] = (char)0x2554; //upper left
-		screenMatrix[sizeX-1][0] = (char)0x2557; //upper right
-		screenMatrix[0][sizeY-1] = (char)0x255A; //low left
-		screenMatrix[sizeX-1][sizeY-1] = (char)0x255D; //low right
+		PlayBoxArea mainPlayBox = new PlayBoxArea(0,0,80,30);
+		StatsBoxArea statsBox = new StatsBoxArea(80,0,20,30);
+		screenEntities.add(mainPlayBox);
+		screenEntities.add(statsBox);
+
 		
-		//lines x axis
-		for (int i = 1 ; i < sizeX - 1; i++) {
-			screenMatrix[i][0] = (char)0x2550; //upper left
-			screenMatrix[i][sizeY-1] = (char)0x2550; //upper left
-		}
+
 		
-		//lines y axis
-		for (int i = 1 ; i < sizeY - 1; i++) {
-			screenMatrix[0][i] = (char)0x2551; //horizontal bar
-			screenMatrix[sizeX-1][i] = (char)0x2551; //vertical bar
-		}
 	}
 	
 	public void update() {
+		
+		for (ScreenEntity se : screenEntities) {
+			se.update(screenMatrix);
+		}
 		
 	}
 	
 	
 	public void draw() {
+		
 		if (screenMatrix != null) {
 			
-			for (int y = 0 ; y < sizeY; y++) {
+			for (int y = 0 ; y < screenSizeY; y++) {
 				out.print("\n");
-				for (int x = 0 ; x < sizeX; x++) {
+				for (int x = 0 ; x < screenSizeX; x++) {
 					out.print(screenMatrix[x][y]); 
 				}
 			}
@@ -75,25 +85,6 @@ public class ScreenHandler {
 			out.flush();
 			
 		}
-	}
-	
-	
-
-
-	public int getSizeX() {
-		return sizeX;
-	}
-
-	public void setSizeX(int sizeX) {
-		this.sizeX = sizeX;
-	}
-
-	public int getSizeY() {
-		return sizeY;
-	}
-
-	public void setSizeY(int sizeY) {
-		this.sizeY = sizeY;
 	}
 
 }

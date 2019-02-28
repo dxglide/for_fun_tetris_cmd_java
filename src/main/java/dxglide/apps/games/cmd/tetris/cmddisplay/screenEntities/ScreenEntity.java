@@ -1,31 +1,64 @@
 package dxglide.apps.games.cmd.tetris.cmddisplay.screenEntities;
 
 public abstract class ScreenEntity {
-	
-	protected int xmatrix;
-	protected int ymatrix;
-	protected int xlength;
-	protected int ylenght;
-	
+
+	protected int xpos;
+	protected int ypos;
+	protected int sizeX;
+	protected int sizeY;
+
 	public ScreenEntity() {
+		// default
+		this.sizeY = 0;
+		this.ypos = 0;
+		this.sizeX = 80;
+		this.sizeY = 25;
 	}
 
-	public ScreenEntity(int xmatrix, int ymatrix, int xlength, int ylenght) {
+	public ScreenEntity(int xpos, int ypos, int sizeX, int sizeY) {
 		super();
-		this.xmatrix = xmatrix;
-		this.ymatrix = ymatrix;
-		this.xlength = xlength;
-		this.ylenght = ylenght;
+		this.xpos = xpos;
+		this.ypos = ypos;
+		this.sizeX = sizeX;
+		this.sizeY = sizeY;
 	}
-	
-	
-	public abstract void calculateMatrix(char [][] screenmatrix);
-	
-	public abstract void updateMatrix(char [][] screenmatrix);
-	
-	public abstract void draw(char [][] screenmatrix);
-	
-	
-	
+
+	public abstract void setup(char[][] screenmatrix);
+
+	public abstract void update(char[][] screenmatrix);
+
+	public abstract void draw(char[][] screenmatrix);
+
+	public int getXpos() {
+		return xpos;
+	}
+
+	public void setXpos(int xpos) {
+		this.xpos = xpos;
+	}
+
+	public int getYpos() {
+		return ypos;
+	}
+
+	public void setYpos(int ypos) {
+		this.ypos = ypos;
+	}
+
+	public int getSizeX() {
+		return sizeX;
+	}
+
+	public void setSizeX(int sizeX) {
+		this.sizeX = sizeX;
+	}
+
+	public int getSizeY() {
+		return sizeY;
+	}
+
+	public void setSizeY(int sizeY) {
+		this.sizeY = sizeY;
+	}
 
 }

@@ -15,29 +15,13 @@ public class CmdScreenHandler implements Runnable {
 	private long delayTick;
 	private ScreenHandler screen;
 	
-	private int size = 10;
-	private char [][] table  = {
-
-            {1  ,2 ,3 ,  4},
-            {5  ,6 ,7,   8},
-            {9  ,10 ,11 ,12},
-            {13 ,14 ,15  ,16}
-
-
-    };
-	
-//	private drawTable() {
-//		
-//	}
-	
-	
 
 	public CmdScreenHandler(PrintStream out, long delayTick) {
 		this.out = out;
 		this.isRunning = false;
 		this.delayTick = delayTick;
-		screen = new ScreenHandler(80, 30, out);
-		screen.initScreen();
+		screen = new ScreenHandler(100, 30, out);  // 80 and 25 //  20 -> 5
+		screen.init();
 	}
 	
 	
@@ -84,6 +68,7 @@ public class CmdScreenHandler implements Runnable {
 			// draw somthing
 			String text = "Current tick .... " + tickCnt; 
 			
+			screen.update();
 			screen.draw();
 			
 //			out.print((char)0x2560);
