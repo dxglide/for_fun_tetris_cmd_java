@@ -8,7 +8,7 @@ import dxglide.apps.games.cmd.tetris.cmddisplay.ansienums.AnsiBackColors;
 import dxglide.apps.games.cmd.tetris.cmddisplay.ansienums.AnsiEffects;
 import dxglide.apps.games.cmd.tetris.cmddisplay.ansienums.AnsiFrontColors;
 
-public class CmdScreenHandler implements Runnable {
+public class GameHandler implements Runnable {
 	
 	private PrintStream out;
 	private boolean isRunning;
@@ -16,7 +16,7 @@ public class CmdScreenHandler implements Runnable {
 	private ScreenHandler screen;
 	
 
-	public CmdScreenHandler(PrintStream out, long delayTick) {
+	public GameHandler(PrintStream out, long delayTick) {
 		this.out = out;
 		this.isRunning = false;
 		this.delayTick = delayTick;
@@ -54,20 +54,22 @@ public class CmdScreenHandler implements Runnable {
 	}
 	
 	
+	
+	
+	
 	public void run() {
-
 		
-		//out.println(CmdFormatting.formatTextColor(clear, AnsiFrontColors.GREEN, AnsiBackColors.LIGHT_YELLOW, AnsiEffects.BOLD));
-		
+		jcurses.system.InputChar ch;
 		start();
 		
 		long  tickCnt = 0L;
 		while(isRunning) {
+			ch=jcurses.system.Toolkit.readCharacter(); 
+			//out.println("\nCurrent tick .... " + tickCnt);
 			
-			// calculate
-			// draw somthing
-			String text = "Current tick .... " + tickCnt; 
 			
+			
+			screen.updateStatsBox(ch.getCode(), tickCnt);
 			screen.update();
 			screen.draw();
 			
@@ -83,13 +85,17 @@ public class CmdScreenHandler implements Runnable {
 			
 			tickCnt++;
 			
-			//clearScreen();
 			
-			stop();
+			clearScreen();
 			
-//			if (tickCnt > 1) {
-//				stop();
-//			}
+			//stop();
+			
+			if (tickCnt > 10) {
+				stop();
+			}
+			
+	
+			
 			
 		}
 		

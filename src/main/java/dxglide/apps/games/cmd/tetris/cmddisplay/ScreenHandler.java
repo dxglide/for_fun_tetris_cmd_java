@@ -5,7 +5,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import dxglide.apps.games.cmd.tetris.cmddisplay.screenEntities.BoxArea;
+import dxglide.apps.games.cmd.tetris.cmddisplay.screenEntities.EnumEntities;
 import dxglide.apps.games.cmd.tetris.cmddisplay.screenEntities.PlayBoxArea;
 import dxglide.apps.games.cmd.tetris.cmddisplay.screenEntities.ScreenEntity;
 import dxglide.apps.games.cmd.tetris.cmddisplay.screenEntities.StatsBoxArea;
@@ -34,6 +34,19 @@ public class ScreenHandler {
 	}
 	
 	
+	public void updateStatsBox(int points, long timePassed) {
+		if (screenEntities != null) {
+			for (ScreenEntity e : screenEntities) {
+				if (e.getEntity() == EnumEntities.STATSBOX) {			
+					((StatsBoxArea)e).setStatPoints(points);
+					((StatsBoxArea)e).setTimePassed(timePassed);
+					break;
+				}
+			}
+		}
+	}
+	
+	
 	/**
 	 * Initialize screen objects ant etc.
 	 */
@@ -51,15 +64,12 @@ public class ScreenHandler {
 		}
 		
 		
-		
-		PlayBoxArea mainPlayBox = new PlayBoxArea(0,0,80,30);
-		StatsBoxArea statsBox = new StatsBoxArea(80,0,20,30);
+		PlayBoxArea mainPlayBox = new PlayBoxArea(0,0,80,30,EnumEntities.PLAYBOX);
+		StatsBoxArea statsBox = new StatsBoxArea(80,0,20,30,EnumEntities.STATSBOX);
+		statsBox.setStatPoints(199);
+		statsBox.setTimePassed(0L);
 		screenEntities.add(mainPlayBox);
 		screenEntities.add(statsBox);
-
-		
-
-		
 	}
 	
 	public void update() {

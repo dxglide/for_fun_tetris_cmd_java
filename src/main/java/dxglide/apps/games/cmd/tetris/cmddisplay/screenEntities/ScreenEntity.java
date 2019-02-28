@@ -6,6 +6,7 @@ public abstract class ScreenEntity {
 	protected int ypos;
 	protected int sizeX;
 	protected int sizeY;
+	protected EnumEntities entity;
 
 	public ScreenEntity() {
 		// default
@@ -13,14 +14,15 @@ public abstract class ScreenEntity {
 		this.ypos = 0;
 		this.sizeX = 80;
 		this.sizeY = 25;
+		this.entity = EnumEntities.DEFAULT;
 	}
 
-	public ScreenEntity(int xpos, int ypos, int sizeX, int sizeY) {
-		super();
+	public ScreenEntity(int xpos, int ypos, int sizeX, int sizeY, EnumEntities entity) {
 		this.xpos = xpos;
 		this.ypos = ypos;
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
+		this.entity = entity;
 	}
 
 	public abstract void setup(char[][] screenmatrix);
@@ -59,6 +61,10 @@ public abstract class ScreenEntity {
 
 	public void setSizeY(int sizeY) {
 		this.sizeY = sizeY;
+	}
+
+	public EnumEntities getEntity() {
+		return entity;
 	}
 
 }

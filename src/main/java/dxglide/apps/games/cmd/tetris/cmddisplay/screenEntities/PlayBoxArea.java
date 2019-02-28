@@ -7,9 +7,11 @@ public class PlayBoxArea extends BoxArea {
 		super();
 	}
 
-	public PlayBoxArea(int xpos, int ypos, int sizeX, int sizeY) {
-		super(xpos, ypos, sizeX, sizeY);
+
+	public PlayBoxArea(int xpos, int ypos, int sizeX, int sizeY, EnumEntities entity) {
+		super(xpos, ypos, sizeX, sizeY, entity);
 	}
+
 
 	@Override
 	public void update(char[][] screenmatrix) {

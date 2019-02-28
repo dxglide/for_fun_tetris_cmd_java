@@ -5,16 +5,17 @@ public class BoxArea extends ScreenEntity {
 	public BoxArea() {
 	}
 
-	public BoxArea(int xpos, int ypos, int sizeX, int sizeY) {
-		super(xpos, ypos, sizeX, sizeY);
+
+	public BoxArea(int xpos, int ypos, int sizeX, int sizeY, EnumEntities entity) {
+		super(xpos, ypos, sizeX, sizeY, entity);
 	}
 
-
-
+	
 	@Override
 	public void setup(char[][] screenmatrix) {
 	}
 
+	
 	@Override
 	public void update(char[][] screenmatrix) {
 		
